@@ -1,0 +1,245 @@
+USE [GPONAssistant]
+GO
+DECLARE @DataUploadID [int],
+@SystemUserID [int] = (SELECT [ID] FROM [dbo].[Users] WHERE [Username] = 'system');
+
+INSERT INTO [dbo].[DataUploads]
+           ([CreatedByID], [CreatedDate])
+     VALUES (1, getdate())
+SET @DataUploadID = @@IDENTITY;
+
+INSERT INTO [dbo].[Addresses]
+           ([CityID]
+           ,[District]
+           ,[Quarter]
+           ,[Street]
+           ,[Number]
+           ,[Entrance]
+           ,[Level]
+           ,[Apartment]
+           ,[CreatedByDataUploadID]
+           ,[ModifiedByDataUploadID])
+     VALUES
+           (1
+           ,N'???????'
+           ,N'???? ????'
+           ,''
+           ,'221'
+           ,N'?'
+           ,'1'
+           ,null
+           ,@DataUploadID
+           ,@DataUploadID)
+           ,
+		   (1
+           ,N'???????'
+           ,N'????? ???????'
+           ,N'???????'
+           ,'10'
+           ,null
+           ,null
+           ,null
+           ,@DataUploadID
+           ,@DataUploadID)
+GO
+
+--------------------------------------------
+--------------------------------------------
+Print 'Nodes...'
+DECLARE @DataUploadID [int] = (SELECT TOP 1 [ID] FROM [dbo].[DataUploads]),
+	@SystemUserID [int] = (SELECT [ID] FROM [dbo].[Users] WHERE [Username] = 'system'),
+	@ES12 [int],
+	@ES12_1 [int],
+	@ES12_2 [int],
+	@ES37 [int],
+	@ES37_1 [int],
+	@MufaM10 [int],
+	@MufaM15 [int],
+	@MufaM20 [int],
+	@MufaM30 [int],
+	@MufaGCO [int],
+	@S1Splitter [int],
+	@MufaM40 [int],
+	@MufaBUT [int],
+	@ODF [int],
+	@S0Splitter [int],
+	@OLTCard	[int]
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[PortCount],[AddressID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (1,'12_S2_16',null,null,1,@DataUploadID,@DataUploadID)
+SELECT @ES12_1 = @@IDENTITY
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[PortCount],[AddressID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (1,'12_S2_16_1',null,16,null,@DataUploadID,@DataUploadID)
+SELECT @ES12_1 = @@IDENTITY
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[PortCount],[AddressID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (1,'12_S2_16_2',null,16,null,@DataUploadID,@DataUploadID)
+SELECT @ES12_2 = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[PortCount],[AddressID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (1,'ES_21',null,4,2,@DataUploadID,@DataUploadID)
+SELECT @ES37_1 = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (4,'CD21.2',null,@DataUploadID,@DataUploadID)
+SELECT @MufaM10 = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (4,'CD21.1',null,@DataUploadID,@DataUploadID)
+SELECT @MufaM15 = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (4,'CD2.2',null,@DataUploadID,@DataUploadID)
+SELECT @MufaM20 = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (4,'CD2.1',null,@DataUploadID,@DataUploadID)
+SELECT @MufaM30 = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (4,'GCO',null,@DataUploadID,@DataUploadID)
+SELECT @MufaGCO = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[PortCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (1,'S1_16',null,16,@DataUploadID,@DataUploadID)
+SELECT @S1Splitter = @@IDENTITY
+--------------------------------------------
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (4,N'???',null,@DataUploadID,@DataUploadID)
+SELECT @MufaM40 = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (4,N'?? FTTH',null,@DataUploadID,@DataUploadID)
+SELECT @MufaBUT = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (6,N'ODF 9 TRUNK 1 FTTH',null,@DataUploadID,@DataUploadID)
+SELECT @ODF = @@IDENTITY
+--------------------------------------------
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[PortCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (1,'S23',null,2,@DataUploadID,@DataUploadID)
+SELECT @S0Splitter = @@IDENTITY
+
+INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (8,'SF_PDN_IN_4255_PON01_1_1_6',null,@DataUploadID,@DataUploadID)
+SELECT @OLTCard = @@IDENTITY
+--------------------------------------------
+--------------------------------------------
+Print 'Splitters...'
+INSERT INTO [dbo].[Splitters] ([NodeID],[UplinkNodeID],[IsEntranceSet],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES (@ES12_1,@S1Splitter,1,@DataUploadID,@DataUploadID)
+						,(@ES12_2,@S1Splitter,1,@DataUploadID,@DataUploadID)
+						,(@ES37_1,@S1Splitter,1,@DataUploadID,@DataUploadID)
+						,(@S1Splitter,@S0Splitter,0,@DataUploadID,@DataUploadID)
+						,(@S0Splitter,null,0,@DataUploadID,@DataUploadID)
+--------------------------------------------
+--------------------------------------------
+Print 'Cables...'
+DECLARE @DropCable1	[int],
+		@DropCable2	[int],
+		@DC21	[int],
+		@DC2	[int],
+		@BC	[int],
+		@MPO1	[int],
+		@MPO2	[int],
+		@TrunkC	[int],
+		@PreTrunk [int],
+		@S0Cable [int],
+		@OLTCable [int]
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('Drop Cable 1',N'OK 4 OF (1x4) FTTx',4,4,@DataUploadID,@DataUploadID)
+SELECT @DropCable1 = @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('Drop Cable 2',N'OK 4 OF (2x2) FTTx',4,2,@DataUploadID,@DataUploadID)
+SELECT @DropCable2 = @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('DC21',N'OK 24 OF (2x12)',24,12,@DataUploadID,@DataUploadID)
+SELECT @DC21 = @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('DC2',N'OK 48 OF (4x12)',48,12,@DataUploadID,@DataUploadID)
+SELECT @DC2 = @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('MPO1',N'OK 72 OF (9?8) FTTx_GPON',72,8,@DataUploadID,@DataUploadID)
+SELECT @MPO1 = @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('MPO2',N'OK 72 OF (9?8) FTTx_GPON',72,8,@DataUploadID,@DataUploadID)
+SELECT @MPO2 = @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('Branching Cable',N'OK 24 OF (6x4)',24,4,@DataUploadID,@DataUploadID)
+SELECT @BC = @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('Trunk Cable',N'OK 72 OF (6x12)',72,12,@DataUploadID,@DataUploadID)
+SELECT @TrunkC= @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('Pre-Trunk Cable',N'OK 72 OF (6x12) fTTb',72,12,@DataUploadID,@DataUploadID)
+SELECT @PreTrunk= @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('S0 Cable',N'(1x4)',4,4,@DataUploadID,@DataUploadID)
+SELECT @S0Cable= @@IDENTITY
+INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+					VALUES ('OLT Cable',N'(1x4)',4,4,@DataUploadID,@DataUploadID)
+SELECT @OLTCable= @@IDENTITY
+
+--------------------------------------------
+--------------------------------------------
+Print 'Node Cable Dispatches...'
+INSERT INTO [dbo].[NodeCableDispatches] ([NodeID],[InCableID],[InCableFiber],[InPort], [OutCableID],[OutCableFiber],[OutPort], [NextNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+     VALUES (@ES12_1,@DropCable1,1,null, null,null,null,null,@DataUploadID,@DataUploadID)
+			,(@ES12_2,@DropCable1,2,null, null,null,null,null,@DataUploadID,@DataUploadID)--
+			,(@ES37_1,@DropCable2,1,null, null,null,null,null,@DataUploadID,@DataUploadID)
+			,(@MufaM10,@DC21,13,null, @DropCable1,1,null,@ES12_1,@DataUploadID,@DataUploadID)
+			,(@MufaM10,@DC21,14,null, @DropCable1,2,null,@ES12_2,@DataUploadID,@DataUploadID)--
+			,(@MufaM20,@DC2,7,null, @DC21,13,null,@MufaM15,@DataUploadID,@DataUploadID)
+			,(@MufaM20,@DC2,8,null, @DC21,14,null,@MufaM15,@DataUploadID,@DataUploadID)--
+			,(@MufaM20,@DC2,27,null, @DropCable2,1,null,@ES37_1,@DataUploadID,@DataUploadID)
+			,(@MufaGCO,@MPO2,19,null, @DC2,7,null,@MufaM30,@DataUploadID,@DataUploadID)
+			,(@MufaGCO,@MPO2,20,null, @DC2,8,null,@MufaM30,@DataUploadID,@DataUploadID)--
+			,(@MufaGCO,@MPO2,18,null, @DC2,27,null,@MufaM30,@DataUploadID,@DataUploadID)
+			,(@S1Splitter,@MPO1,4,null, @MPO2,19,3,@MufaGCO,@DataUploadID,@DataUploadID)
+			,(@S1Splitter,@MPO1,4,null, @MPO2,20,4,@MufaGCO,@DataUploadID,@DataUploadID)--
+			,(@S1Splitter,@MPO1,4,null, @MPO2,18,2,@MufaGCO,@DataUploadID,@DataUploadID)
+			,(@MufaGCO,@BC,6,null, @MPO1,4,null,@S1Splitter,@DataUploadID,@DataUploadID)
+			,(@MufaM40,@TrunkC,22,null, @BC,6,null,@MufaGCO,@DataUploadID,@DataUploadID)
+			,(@MufaBUT,@PreTrunk,94,null, @TrunkC,22,null,@MufaM40,@DataUploadID,@DataUploadID)
+			,(@ODF,@S0Cable,1,null, @PreTrunk,94,null,@MufaBUT,@DataUploadID,@DataUploadID)
+			,(@S0Splitter,@OLTCable,1,null, @S0Cable,1,2,@ODF,@DataUploadID,@DataUploadID)
+			,(@OLTCard,null,null,null, @OLTCable,1,3,@S0Splitter,@DataUploadID,@DataUploadID)
+			--
+
+--------------------------
+Print 'Cable Lengths...'
+INSERT INTO [dbo].[CableLengths] ([CableID],[FromNodeID],[ToNodeID],[Length],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+     VALUES (@DropCable1,@ES12_1,@MufaM10,10,@DataUploadID,@DataUploadID)
+			,(@DropCable2,@ES37_1,@MufaM20,10,@DataUploadID,@DataUploadID)
+			,(@DC21,@MufaM10,@MufaM15,53,@DataUploadID,@DataUploadID)
+			,(@DC21,@MufaM20,@MufaM15,90,@DataUploadID,@DataUploadID)
+			,(@DC2,@MufaM20,@MufaM30,120,@DataUploadID,@DataUploadID)
+			,(@DC2,@MufaGCO,@MufaM30,110,@DataUploadID,@DataUploadID)
+			,(@MPO2,@S1Splitter,@MufaGCO,6,@DataUploadID,@DataUploadID)
+			,(@MPO1,@S1Splitter,@MufaGCO,6,@DataUploadID,@DataUploadID)
+			,(@BC,@MufaM40,@MufaGCO,52,@DataUploadID,@DataUploadID)
+			,(@TrunkC,@MufaM40,@MufaBUT,260,@DataUploadID,@DataUploadID)
+			,(@PreTrunk,@ODF,@MufaBUT,40,@DataUploadID,@DataUploadID)
+			,(@S0Cable,@S0Splitter,@ODF,10,@DataUploadID,@DataUploadID)
+			,(@OLTCable,@OLTCard,@S0Splitter,10,@DataUploadID,@DataUploadID)
+			
+--------------------------
+Print 'Subscribers...'
+INSERT INTO [dbo].[Subscribers] ([FirstName],[LastName],[ESNodeID],[ESNodePort],[CreatedByDataUploadID],[ModifiedByDataUploadID])
+     VALUES (N'???????',N'?????',@ES12_1,1,@DataUploadID,@DataUploadID)
+			,(N'??????',N'???????',@ES12_1,2,@DataUploadID,@DataUploadID)
+			,(N'?????????',N'?????????',@ES12_1,4,@DataUploadID,@DataUploadID)
+			,(N'???????',N'????????',@ES12_1,5,@DataUploadID,@DataUploadID)
+			,(N'????????',N'??????',@ES12_1,7,@DataUploadID,@DataUploadID)
+			,(N'?????',N'??????????',@ES12_1,9,@DataUploadID,@DataUploadID)
+			,(N'?????',N'?????',@ES12_1,10,@DataUploadID,@DataUploadID)
+			,(N'????????',N'???????',@ES12_1,12,@DataUploadID,@DataUploadID)
+			,(N'??????',N'?????',@ES12_1,13,@DataUploadID,@DataUploadID)
+			,(N'????',N'????????',@ES12_1,14,@DataUploadID,@DataUploadID)
+			,(N'????',N'??????????',@ES12_1,15,@DataUploadID,@DataUploadID)
+			---
+			,(N'?????',N'?????????',@ES37_1,1,@DataUploadID,@DataUploadID)
+			,(N'???????',N'???????',@ES37_1,2,@DataUploadID,@DataUploadID)
+			--
+			,(N'?????',N'???????',@ES12_2,1,@DataUploadID,@DataUploadID)
+			,(N'?????',N'????????',@ES12_2,2,@DataUploadID,@DataUploadID)
+			,(N'??????',N'??????',@ES12_2,4,@DataUploadID,@DataUploadID)
+			,(N'????????',N'????????',@ES12_2,4,@DataUploadID,@DataUploadID)
