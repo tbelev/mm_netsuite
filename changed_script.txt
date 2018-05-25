@@ -110,9 +110,6 @@ INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataU
 					VALUES (4,N'?? FTTH',null,@DataUploadID,@DataUploadID)
 SELECT @MufaBUT = @@IDENTITY
 
-INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[CreatedByDataUploadID],[ModifiedByDataUploadID])
-					VALUES (6,N'ODF 9 TRUNK 1 FTTH',null,@DataUploadID,@DataUploadID)
-SELECT @ODF = @@IDENTITY
 --------------------------------------------
 INSERT INTO [dbo].[Nodes] ([NodeTypeID],[Name],[ContainerNodeID],[PortCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
 					VALUES (1,'S23',null,2,@DataUploadID,@DataUploadID)
@@ -147,9 +144,6 @@ DECLARE @DropCable1	[int],
 INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
 					VALUES ('Drop Cable 1',N'OK 4 OF (1x4) FTTx',4,4,@DataUploadID,@DataUploadID)
 SELECT @DropCable1 = @@IDENTITY
-INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
-					VALUES ('Drop Cable 2',N'OK 4 OF (2x2) FTTx',4,2,@DataUploadID,@DataUploadID)
-SELECT @DropCable2 = @@IDENTITY
 INSERT INTO [dbo].[Cables] ([Name],[Type],[AllFibersCount],[TubeFibersCount],[CreatedByDataUploadID],[ModifiedByDataUploadID])
 					VALUES ('DC21',N'OK 24 OF (2x12)',24,12,@DataUploadID,@DataUploadID)
 SELECT @DC21 = @@IDENTITY
